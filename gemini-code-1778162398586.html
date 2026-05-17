@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أساس مكين | العرض التفاعلي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;700;900&family=Tajawal:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mk-dark: #1A2421; 
+            --mk-gold: #C2A077; 
+            --mk-sand: #F4F1EA; 
+            --mk-white: #FFFFFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background-color: var(--mk-dark); color: var(--mk-white); overflow-x: hidden; }
+        h1, h2, h3, h4, .cairo-font { font-family: 'Cairo', sans-serif; }
+
+        .ai-citation { display: none !important; }
+
+        /* حاوية الفصول المتراكبة */
+        .story-container { position: relative; }
+
+        /* إعدادات كل فصل ليكون ملء الشاشة ويثبت في مكانه */
+        .chapter {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 -20px 50px rgba(0,0,0,0.5); /* يعطي ظل للفصل اللي ينزل فوق اللي قبله */
+            will-change: transform;
+        }
+
+        /* --- الفصل 1: الغلاف (إبداعي ومينيمال) --- */
+        #ch1-hero { background-color: var(--mk-sand); color: var(--mk-dark); flex-direction: column; }
+        .hero-title { font-size: 15vw; font-weight: 900; line-height: 0.8; letter-spacing: -2px; text-transform: uppercase; margin-bottom: 20px; z-index: 2; position: relative; }
+        .hero-subtitle { font-size: 2vw; font-weight: 300; letter-spacing: 10px; color: var(--mk-gold); z-index: 2; }
+        .hero-img { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 40vw; height: 60vh; object-fit: cover; opacity: 0.8; z-index: 1; border-radius: 1000px; /* شكل كبسولة ابداعي */ animation: float 6s ease-in-out infinite; }
+        
+        @keyframes float { 0% { transform: translate(-50%, -48%); } 50% { transform: translate(-50%, -52%); } 100% { transform: translate(-50%, -48%); } }
+
+        /* --- الفصل 2: الفلسفة والمنهجية (شاشة منقسمة) --- */
+        #ch2-philosophy { background-color: var(--mk-dark); }
+        .split-screen { display: flex; width: 100%; height: 100%; }
+        .split-left { flex: 1; padding: 100px; display: flex; flex-direction: column; justify-content: center; }
+        .split-right { flex: 1; background: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1000') center/cover; position: relative; }
+        .split-right::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, var(--mk-dark) 0%, transparent 50%); }
+        .huge-text { font-size: 4vw; font-weight: 800; color: var(--mk-gold); line-height: 1.2; margin-bottom: 30px; }
+        .vertical-text { position: absolute; left: 30px; top: 50%; transform: translateY(-50%) rotate(-90deg); font-size: 1rem; letter-spacing: 5px; color: var(--mk-gold); opacity: 0.5; }
+
+        /* --- الفصل 3: لغة الأرقام (تصميم تايبوجرافي ضخم) --- */
+        #ch3-stats { background-color: var(--mk-gold); color: var(--mk-dark); flex-direction: column; }
+        .stats-marquee { display: flex; width: 100%; overflow: hidden; white-space: nowrap; margin-bottom: 50px; }
+        .marquee-content { font-size: 8vw; font-weight: 900; font-family: 'Cairo'; animation: scrollMarquee 20s linear infinite; display: flex; gap: 100px; opacity: 0.2; }
+        @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(100%); } }
+        .stats-grid-creative { display: flex; gap: 8vw; position: absolute; z-index: 2; }
+        .stat-creative-item h3 { font-size: 6vw; font-weight: 900; line-height: 1; }
+        .stat-creative-item p { font-size: 1.5vw; font-weight: 700; text-transform: uppercase; }
+
+        /* --- الفصل 4: المشاريع (تمرير أفقي مخفي داخل القسم العمودي) --- */
+        #ch4-projects { background-color: var(--mk-sand); display: block; overflow-x: hidden; }
+        .horizontal-scroll-wrapper { display: flex; width: 100%; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; padding: 100px 5vw; gap: 5vw; }
+        .horizontal-scroll-wrapper::-webkit-scrollbar { display: none; } /* إخفاء شريط التمرير */
+        .project-slide { min-width: 70vw; height: 70vh; scroll-snap-align: center; position: relative; border-radius: 20px; overflow: hidden; }
+        .project-slide img { width: 100%; height: 100%; object-fit: cover; }
+        .project-info-glass { position: absolute; bottom: 40px; left: 40px; right: 40px; background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2); padding: 40px; border-radius: 15px; color: var(--mk-white); display: flex; justify-content: space-between; align-items: flex-end; }
+        .project-info-glass h3 { font-size: 3vw; color: var(--mk-gold); }
+
+        /* --- الفصل 5: الثقة (المجلس + الشركاء + الشهادات بأسلوب لوحة فنية) --- */
+        #ch5-trust { background: var(--mk-dark); flex-direction: column; padding: 50px; }
+        .trust-grid { display: grid; grid-template-columns: 1fr 2fr; width: 100%; max-width: 1600px; height: 80vh; gap: 30px; }
+        .trust-panel { background: rgba(255,255,255,0.03); border: 1px solid rgba(194, 160, 119, 0.2); border-radius: 20px; padding: 40px; overflow-y: auto; }
+        .trust-panel::-webkit-scrollbar { width: 5px; }
+        .trust-panel::-webkit-scrollbar-thumb { background: var(--mk-gold); }
+        .panel-title { font-size: 2.5rem; color: var(--mk-gold); margin-bottom: 30px; position: sticky; top: 0; background: var(--mk-dark); padding-bottom: 10px; z-index: 10; }
+        
+        .names-list { display: flex; flex-direction: column; gap: 20px; }
+        .names-list div h4 { font-size: 1.5rem; font-weight: 700; color: var(--mk-white); }
+        .names-list div p { color: var(--mk-gold); }
+
+        .tags-cloud { display: flex; flex-wrap: wrap; gap: 15px; }
+        .tag-pill { border: 1px solid var(--mk-gold); padding: 15px 25px; border-radius: 50px; font-size: 1.2rem; transition: 0.3s; }
+        .tag-pill:hover { background: var(--mk-gold); color: var(--mk-dark); }
+
+        /* --- الفصل 6: النهاية / التواصل --- */
+        #ch6-contact { background: url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2000') center/cover; position: relative; }
+        .contact-glass { background: rgba(26, 36, 33, 0.6); backdrop-filter: blur(30px); width: 50vw; height: 100%; position: absolute; left: 0; display: flex; flex-direction: column; justify-content: center; padding: 100px; }
+        .creative-input { width: 100%; background: transparent; border: none; border-bottom: 2px solid rgba(255,255,255,0.3); color: var(--mk-white); font-size: 2rem; padding: 20px 0; margin-bottom: 40px; font-family: 'Cairo'; outline: none; transition: 0.3s; }
+        .creative-input::placeholder { color: rgba(255,255,255,0.2); font-weight: 200; }
+        .creative-input:focus { border-bottom-color: var(--mk-gold); }
+        .btn-creative { background: var(--mk-gold); color: var(--mk-dark); font-size: 2rem; border: none; padding: 20px 50px; border-radius: 100px; cursor: pointer; font-family: 'Cairo'; font-weight: 800; transition: 0.3s; align-self: flex-start; }
+        .btn-creative:hover { transform: scale(1.05); }
+
+    </style>
+</head>
+<body>
+
+    <div class="story-container">
+
+        <section class="chapter" id="ch1-hero">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1000" class="hero-img" alt="Makeen Architecture">
+            <h1 class="hero-title">مكين</h1>
+            <p class="hero-subtitle">MAKEEN</p>
+            <p style="position: absolute; bottom: 50px; font-size: 1.2rem; letter-spacing: 2px;">↓ مرر للأسفل لاكتشاف الإبداع <span class="ai-citation"></span></p>
+        </section>
+
+        <section class="chapter" id="ch2-philosophy">
+            <div class="split-screen">
+                <div class="split-left">
+                    <h2 class="huge-text">رؤية ترتكز على الجودة، وتبني للمستقبل <span class="ai-citation"></span></h2>
+                    <p style="font-size: 1.5rem; font-weight: 300; line-height: 1.8; color: #ccc;">
+                        منذ عام 2010، انطلقنا لنعيد تعريف السكن كمساحة للراحة والاستقرار. عبر منظومة عمل متكاملة تقدم أعلى جودة، في وقت قياسي، وبكفاءة استثمار تضمن القيمة المستدامة <span class="ai-citation"></span>.
+                    </p>
+                    <div class="vertical-text">ASAS MAKEEN PHILOSOPHY</div>
+                </div>
+                <div class="split-right"></div>
+            </div>
+        </section>
+
+        <section class="chapter" id="ch3-stats">
+            <div class="stats-marquee">
+                <div class="marquee-content">
+                    <span>THE LEADER IN REAL ESTATE</span>
+                    <span>THE LEADER IN REAL ESTATE</span>
+                </div>
+            </div>
+            <div class="stats-grid-creative">
+                <div class="stat-creative-item"><h3>+92</h3><p>مشروع منجز <span class="ai-citation"></span></p></div>
+                <div class="stat-item" style="width: 2px; background: rgba(0,0,0,0.1);"></div>
+                <div class="stat-creative-item"><h3>+6055</h3><p>وحدة سكنية <span class="ai-citation"></span></p></div>
+                <div class="stat-item" style="width: 2px; background: rgba(0,0,0,0.1);"></div>
+                <div class="stat-creative-item"><h3>+1.1M</h3><p>متر مربع مباني <span class="ai-citation"></span></p></div>
+            </div>
+            <h2 style="position: absolute; bottom: 50px; left: 50px; font-size: 3vw; font-weight: 900; color: rgba(0,0,0,0.05);">أرقام تصنع الفارق <span class="ai-citation"></span></h2>
+        </section>
+
+        <section class="chapter" id="ch4-projects">
+            <h2 style="position: absolute; top: 40px; right: 5vw; font-size: 3rem; color: var(--mk-dark);">روائع مكين المعمارية <span class="ai-citation"></span></h2>
+            <p style="position: absolute; top: 60px; left: 5vw; font-size: 1.2rem; color: #666;">← اسحب لليسار لتصفح المشاريع</p>
+            
+            <div class="horizontal-scroll-wrapper">
+                <div class="project-slide">
+                    <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1500" alt="النسيم">
+                    <div class="project-info-glass">
+                        <div>
+                            <h3>مكين حي النسيم <span class="ai-citation"></span></h3>
+                            <p style="font-size: 1.5rem; font-weight: 300;">موقع يسهل حياتك ومساحة تصنع راحتك <span class="ai-citation"></span></p>
+                        </div>
+                        <div style="text-align: left;">
+                            <span style="font-size: 2rem; font-weight: 800; color: var(--mk-gold);">سكني</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-slide">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1500" alt="الرمال">
+                    <div class="project-info-glass">
+                        <div>
+                            <h3>مكين 66 الرمال <span class="ai-citation"></span></h3>
+                            <p style="font-size: 1.5rem; font-weight: 300;">اختيار يجمع بين موقع يخدمك ومساحة مصممة لك <span class="ai-citation"></span></p>
+                        </div>
+                        <div style="text-align: left;">
+                            <span style="font-size: 2rem; font-weight: 800; color: var(--mk-gold);">شقق وفلل</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-slide">
+                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1500" alt="أبراج">
+                    <div class="project-info-glass">
+                        <div>
+                            <h3>مكين الياسمين والفنادق <span class="ai-citation"></span></h3>
+                            <p style="font-size: 1.5rem; font-weight: 300;">أبراج إدارية وفندقية ترتقي بمستوى الأعمال <span class="ai-citation"></span></p>
+                        </div>
+                        <div style="text-align: left;">
+                            <span style="font-size: 2rem; font-weight: 800; color: var(--mk-gold);">إداري / فندقي</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="chapter" id="ch5-trust">
+            <h2 style="font-size: 4rem; color: var(--mk-white); text-align: center; margin-bottom: 20px;">نظام الثقة المتكامل <span class="ai-citation"></span></h2>
+            <div class="trust-grid">
+                <div class="trust-panel">
+                    <h3 class="panel-title">مجلس الإدارة <span class="ai-citation"></span></h3>
+                    <div class="names-list">
+                        <div><h4>أ. عبد الرحمن بن سعود الهدلق</h4><p>رئيس مجلس الإدارة <span class="ai-citation"></span></p></div>
+                        <div style="height: 1px; background: rgba(255,255,255,0.1);"></div>
+                        <div><h4>أ. أنس بن سعود الهدلق</h4><p>نائب رئيس مجلس الإدارة <span class="ai-citation"></span></p></div>
+                        <div style="height: 1px; background: rgba(255,255,255,0.1);"></div>
+                        <div><h4>أ. عبد الرحمن بن إبراهيم الهدلق</h4><p>الرئيس التنفيذي <span class="ai-citation"></span></p></div>
+                        <div style="height: 1px; background: rgba(255,255,255,0.1);"></div>
+                        <div><h4>أ. عبد الرحمن الشهري & أ. نايف الشعلان</h4><p>أعضاء مستقلون <span class="ai-citation"></span></p></div>
+                    </div>
+                </div>
+                <div class="trust-panel" style="display: flex; flex-direction: column; gap: 40px;">
+                    <div>
+                        <h3 class="panel-title">اعتمادات وضمانات <span class="ai-citation"></span></h3>
+                        <div class="tags-cloud">
+                            <span class="tag-pill" style="background: var(--mk-gold); color: var(--mk-dark); border: none;">ضمان 25 سنة <span class="ai-citation"></span></span>
+                            <span class="tag-pill">مقاولات درجة أولى <span class="ai-citation"></span></span>
+                            <span class="tag-pill">ISO 9001:2015 <span class="ai-citation"></span></span>
+                            <span class="tag-pill">ISO 45001:2018 <span class="ai-citation"></span></span>
+                            <span class="tag-pill">أفضل بيئة عمل <span class="ai-citation"></span></span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="panel-title">شركاء التحول الوطني <span class="ai-citation"></span></h3>
+                        <div class="tags-cloud">
+                            <span class="tag-pill">الوطنية للإسكان NHC <span class="ai-citation"></span></span>
+                            <span class="tag-pill">ROSHN <span class="ai-citation"></span></span>
+                            <span class="tag-pill">حديقة الملك سلمان <span class="ai-citation"></span></span>
+                            <span class="tag-pill">المسار الرياضي <span class="ai-citation"></span></span>
+                            <span class="tag-pill">المربع الجديد <span class="ai-citation"></span></span>
+                            <span class="tag-pill">مصرف الراجحي <span class="ai-citation"></span></span>
+                            <span class="tag-pill">بنك البلاد <span class="ai-citation"></span></span>
+                            <span class="tag-pill">مصرف الإنماء <span class="ai-citation"></span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="chapter" id="ch6-contact">
+            <div class="contact-glass">
+                <h2 style="font-size: 5rem; color: var(--mk-gold); margin-bottom: 10px; line-height: 1;">ابدأ رحلتك</h2>
+                <p style="font-size: 1.5rem; font-weight: 300; margin-bottom: 50px; color: #eee;">تملك وحدتك الآن بأسعار تبدأ من 400,000 ريال <span class="ai-citation"></span></p>
+                
+                <form action="#" method="POST" style="display: flex; flex-direction: column;">
+                    <input type="text" class="creative-input" placeholder="اسمك الكريم" required>
+                    <input type="tel" class="creative-input" placeholder="رقم هاتفك" required>
+                    <button type="submit" class="btn-creative">إرسال الطلب</button>
+                </form>
+
+                <p style="position: absolute; bottom: 40px; font-size: 1rem; color: rgba(255,255,255,0.3);">© 2026 أساس مكين للتطوير والاستثمار العقاري. جميع الحقوق محفوظة.</p>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>
