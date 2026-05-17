@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>مكين — خلف كل أثرٍ باقٍ، أساسٌ مكين</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@200;300;400;500;600;700&family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --olive-deep:#2d3024;
+  --olive:#3a3d2d;
+  --olive-soft:#525440;
+  --cream:#e8dccb;
+  --cream-light:#f1e7d7;
+  --cream-pale:#faf5ec;
+  --sand:#c9b594;
+  --camel:#a68763;
+  --camel-deep:#8a6d4a;
+  --bronze:#6f5638;
+  --ink:#1f1d18;
+  --ink-soft:#4a443a;
+  --line:rgba(31,29,24,0.1);
+  --line-soft:rgba(31,29,24,0.06);
+  --line-on-dark:rgba(232,220,203,0.1);
+  --shadow-sm:0 10px 30px -10px rgba(31,29,24,0.12);
+  --shadow-md:0 30px 60px -25px rgba(31,29,24,0.2);
+  --shadow-lg:0 50px 100px -40px rgba(31,29,24,0.3);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+
+body{
+  font-family:'IBM Plex Sans Arabic', sans-serif;
+  background:var(--cream-pale);
+  color:var(--ink);
+  line-height:1.7;
+  overflow-x:hidden;
+  font-weight:400;
+}
+
+.latin{font-family:'Inter', sans-serif;letter-spacing:0;}
+
+img{max-width:100%;display:block;}
+
+/* ============ NAV ============ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:24px 60px;
+  display:flex;justify-content:space-between;align-items:center;
+  backdrop-filter:blur(24px) saturate(180%);
+  background:rgba(250,245,236,0.7);
+  transition:all .5s cubic-bezier(.25,.1,.25,1);
+}
+nav.scrolled{
+  padding:18px 60px;
+  background:rgba(250,245,236,0.95);
+  box-shadow:0 1px 0 rgba(31,29,24,0.06);
+}
+.nav-logo{
+  font-size:26px;font-weight:600;letter-spacing:0.5px;color:var(--olive-deep);
+  transition:all .3s;
+}
+.nav-logo span{color:var(--camel);}
+.nav-links{display:flex;gap:40px;font-size:14px;font-weight:500;}
+.nav-links a{
+  color:var(--ink-soft);text-decoration:none;position:relative;
+  padding:4px 0;transition:color .3s;
+}
+.nav-links a:hover{color:var(--olive-deep);}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-4px;right:0;
+  width:0;height:1.5px;background:var(--camel);transition:width .4s ease;
+}
+.nav-links a:hover::after{width:100%;}
+.nav-cta{
+  font-size:13px;font-weight:500;padding:13px 28px;
+  background:var(--olive-deep);color:var(--cream);
+  text-decoration:none;transition:all .4s;border-radius:100px;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.nav-cta::after{
+  content:'→';font-family:'Inter';font-size:14px;
+  transition:transform .4s;display:inline-block;
+}
+.nav-cta:hover{background:var(--ink);transform:translateY(-2px);box-shadow:var(--shadow-sm);}
+.nav-cta:hover::after{transform:translateX(-4px);}
+
+/* ============ HERO - Fullscreen ============ */
+.hero{
+  min-height:100vh;position:relative;
+  overflow:hidden;display:flex;align-items:flex-end;
+  padding:120px 60px 60px;
+  background:var(--olive-deep);
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background-image:url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=2400&q=90');
+  background-size:cover;background-position:center;
+  transform:scale(1.05);
+  animation:slowZoom 20s ease-in-out infinite alternate;
+}
+@keyframes slowZoom{
+  0%{transform:scale(1.05);}
+  100%{transform:scale(1.15);}
+}
+.hero-bg::after{
+  content:'';position:absolute;inset:0;
+  background:
+    linear-gradient(180deg, rgba(45,48,36,0.4) 0%, transparent 30%, transparent 50%, rgba(31,29,24,0.85) 100%),
+    linear-gradient(90deg, rgba(31,29,24,0.5) 0%, transparent 50%);
+}
+
+.hero-content{
+  position:relative;z-index:2;color:var(--cream);
+  width:100%;max-width:1400px;margin:0 auto;
+}
+.hero-top{
+  display:flex;align-items:center;gap:14px;
+  margin-bottom:40px;font-size:12px;letter-spacing:4px;
+  font-weight:500;color:var(--sand);
+}
+.hero-top::before{content:'';width:60px;height:1px;background:var(--sand);}
+.hero-title{
+  font-size:clamp(60px,9vw,148px);
+  font-weight:200;line-height:0.92;
+  letter-spacing:-4px;margin-bottom:36px;
+  color:#fff;
+}
+.hero-bottom{
+  display:grid;grid-template-columns:1fr auto;
+  align-items:end;gap:60px;
+  padding-top:50px;border-top:1px solid rgba(232,220,203,0.2);
+}
+.hero-tagline{
+  font-size:clamp(20px,2vw,26px);line-height:1.5;
+  max-width:600px;font-weight:300;color:var(--cream-light);
+}
+.hero-stats{
+  display:flex;gap:60px;
+}
+.hero-stats div{text-align:right;}
+.hero-stats strong{
+  display:block;font-size:46px;font-weight:200;
+  color:var(--sand);margin-bottom:4px;letter-spacing:-2px;
+  line-height:1;
+}
+.hero-stats span{
+  color:var(--cream-light);opacity:.8;
+  font-size:12px;letter-spacing:2px;font-weight:500;
+}
+
+.scroll-down{
+  position:absolute;bottom:40px;left:60px;z-index:5;
+  display:flex;align-items:center;gap:12px;
+  color:var(--cream);font-size:11px;letter-spacing:3px;
+  font-weight:500;
+}
+.scroll-down .line-anim{
+  width:1px;height:50px;background:var(--cream);
+  position:relative;overflow:hidden;
+}
+.scroll-down .line-anim::after{
+  content:'';position:absolute;top:-100%;left:0;
+  width:100%;height:50%;background:var(--sand);
+  animation:scrollDown 2s ease-in-out infinite;
+}
+@keyframes scrollDown{
+  0%{top:-50%;}
+  100%{top:100%;}
+}
+
+/* ============ SECTIONS COMMON ============ */
+section{padding:160px 60px;position:relative;}
+.container{max-width:1400px;margin:0 auto;}
+
+.section-eyebrow{
+  display:inline-flex;align-items:center;gap:12px;
+  font-size:11px;letter-spacing:4px;color:var(--camel-deep);
+  margin-bottom:28px;font-weight:600;
+  padding:8px 18px;
+  background:rgba(166,135,99,0.08);
+  border-radius:100px;
+  border:1px solid rgba(166,135,99,0.2);
+}
+.section-eyebrow::before{
+  content:'';width:6px;height:6px;background:var(--camel);
+  border-radius:50%;
+}
+
+.section-title{
+  font-size:clamp(40px,5.5vw,82px);line-height:1.04;
+  font-weight:200;letter-spacing:-2px;
+  margin-bottom:28px;color:var(--olive-deep);
+}
+.section-title em{font-style:normal;color:var(--camel-deep);font-weight:400;}
+
+/* ============ PHILOSOPHY - Full image hero quote ============ */
+.philosophy{
+  position:relative;min-height:90vh;
+  background:var(--ink);color:var(--cream);
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:160px 40px;overflow:hidden;
+}
+.philosophy-bg{
+  position:absolute;inset:0;
+  background-image:url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=2400&q=90');
+  background-size:cover;background-position:center;
+  opacity:.35;
+  filter:grayscale(0.3) brightness(0.7);
+}
+.philosophy::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at center, transparent 0%, rgba(31,29,24,0.7) 70%, var(--ink) 100%);
+}
+.philosophy-content{position:relative;z-index:2;max-width:1100px;}
+
+.phil-mark{
+  font-size:140px;color:var(--camel);line-height:0.5;
+  margin-bottom:50px;font-weight:200;
+  font-family:'Inter';
+}
+.phil-quote{
+  font-size:clamp(32px,4.5vw,68px);line-height:1.3;
+  margin-bottom:60px;font-weight:200;
+  letter-spacing:-1px;color:#fff;
+}
+.phil-quote em{font-style:normal;color:var(--sand);font-weight:300;}
+.phil-body{
+  font-size:18px;line-height:1.9;
+  max-width:700px;margin:0 auto 60px;
+  opacity:.75;font-weight:300;
+}
+.phil-vision{
+  display:inline-block;padding:36px 70px;
+  border:1px solid rgba(201,181,148,0.3);
+  border-radius:4px;
+  font-size:22px;font-weight:300;line-height:1.5;
+  backdrop-filter:blur(10px);
+  background:rgba(232,220,203,0.05);
+}
+.phil-vision strong{
+  display:block;font-size:11px;letter-spacing:4px;
+  color:var(--sand);margin-bottom:16px;font-weight:600;
+}
+
+/* ============ HERITAGE - Editorial split ============ */
+.heritage{
+  display:grid;grid-template-columns:1fr 1.2fr;
+  gap:100px;align-items:center;background:var(--cream-pale);
+  max-width:1500px;margin:0 auto;
+}
+.heritage-visual{
+  position:relative;aspect-ratio:4/5;
+  border-radius:4px;overflow:hidden;
+  box-shadow:var(--shadow-md);
+}
+.heritage-visual img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform 1.2s cubic-bezier(.25,.1,.25,1);
+}
+.heritage-visual:hover img{transform:scale(1.05);}
+.heritage-visual::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg, transparent 50%, rgba(45,48,36,0.7));
+  pointer-events:none;
+}
+.heritage-badge{
+  position:absolute;bottom:36px;right:36px;z-index:2;
+  color:#fff;
+}
+.heritage-badge .big{
+  font-size:96px;font-weight:200;line-height:0.9;
+  display:block;letter-spacing:-4px;color:var(--sand);
+}
+.heritage-badge small{
+  font-size:11px;letter-spacing:3px;
+  opacity:.95;display:block;margin-top:10px;font-weight:500;
+}
+.heritage-text .section-title{margin-bottom:36px;}
+.heritage-text p{
+  font-size:18px;line-height:1.9;margin-bottom:24px;
+  color:var(--ink-soft);font-weight:400;
+}
+.heritage-text p:first-of-type{
+  font-size:24px;color:var(--ink);
+  font-weight:400;line-height:1.6;
+  margin-bottom:32px;
+}
+.heritage-text p:first-of-type::first-letter{
+  font-size:64px;float:right;line-height:1;
+  margin-left:10px;color:var(--camel-deep);font-weight:300;
+}
+
+/* ============ IMPACT - Dark fullwidth ============ */
+.impact{
+  background:var(--olive-deep);color:var(--cream);
+  padding:180px 60px;position:relative;overflow:hidden;
+}
+.impact::before{
+  content:'';position:absolute;top:0;right:-200px;
+  width:600px;height:600px;
+  background:radial-gradient(circle, rgba(201,181,148,0.08) 0%, transparent 70%);
+}
+.impact-header{
+  display:grid;grid-template-columns:1.3fr 1fr;
+  gap:80px;align-items:end;margin-bottom:100px;
+  padding-bottom:50px;border-bottom:1px solid var(--line-on-dark);
+}
+.impact-header .section-eyebrow{
+  background:rgba(201,181,148,0.1);
+  color:var(--sand);
+  border-color:rgba(201,181,148,0.2);
+}
+.impact-header .section-title{color:#fff;}
+.impact-header .section-title em{color:var(--sand);}
+.impact-header > p{
+  max-width:420px;font-size:17px;line-height:1.9;
+  opacity:.7;font-weight:300;
+}
+.impact-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+}
+.impact-item{
+  padding:60px 40px;
+  border-right:1px solid var(--line-on-dark);
+  position:relative;transition:all .5s cubic-bezier(.25,.1,.25,1);
+  cursor:default;
+}
+.impact-item:hover{
+  background:rgba(201,181,148,0.04);
+  transform:translateY(-4px);
+}
+.impact-item:nth-child(3n){border-right:none;}
+.impact-item:nth-child(n+4){border-top:1px solid var(--line-on-dark);}
+.impact-num{
+  font-size:108px;font-weight:200;line-height:1;
+  color:var(--sand);margin-bottom:24px;letter-spacing:-4px;
+  display:flex;align-items:baseline;gap:6px;
+  transition:color .4s;
+}
+.impact-item:hover .impact-num{color:var(--cream);}
+.impact-num sup{
+  font-size:26px;color:var(--camel);
+  font-weight:300;letter-spacing:0;
+}
+.impact-label{
+  font-size:20px;margin-bottom:14px;
+  color:var(--cream-light);font-weight:500;
+}
+.impact-desc{
+  font-size:14px;opacity:.65;line-height:1.7;font-weight:300;
+}
+.impact-index{
+  position:absolute;top:30px;left:30px;
+  font-size:12px;color:var(--camel);
+  letter-spacing:2px;font-weight:500;opacity:.6;
+}
+
+/* ============ PROMISE - Two column ============ */
+.promise{
+  background:var(--cream-light);
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:100px;padding:180px 60px;align-items:start;
+}
+.promise-header h2{
+  font-size:clamp(38px,4.6vw,68px);line-height:1.08;
+  margin-bottom:32px;font-weight:200;
+  color:var(--olive-deep);letter-spacing:-2px;
+}
+.promise-header h2 em{font-style:normal;color:var(--camel-deep);font-weight:400;}
+.promise-header > p{
+  font-size:18px;line-height:1.9;color:var(--ink-soft);
+  max-width:480px;margin-bottom:50px;
+}
+.promise-image{
+  margin-top:50px;aspect-ratio:5/4;
+  border-radius:4px;overflow:hidden;position:relative;
+  box-shadow:var(--shadow-md);
+}
+.promise-image img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform 1.5s cubic-bezier(.25,.1,.25,1);
+}
+.promise-image:hover img{transform:scale(1.06);}
+.promise-seal{
+  position:absolute;bottom:30px;right:30px;
+  display:flex;align-items:center;gap:18px;
+  padding:24px 30px;background:rgba(250,245,236,0.95);
+  backdrop-filter:blur(20px);
+  box-shadow:var(--shadow-md);
+  border-radius:4px;
+}
+.promise-seal .num{
+  font-size:58px;font-weight:200;color:var(--camel-deep);
+  line-height:1;letter-spacing:-2px;
+}
+.promise-seal small{
+  font-size:10px;letter-spacing:3px;color:var(--olive-deep);
+  display:block;margin-bottom:4px;font-weight:600;
+}
+.promise-seal p{font-size:14px;color:var(--ink);font-weight:500;line-height:1.4;}
+
+.promise-list{display:flex;flex-direction:column;gap:0;}
+.promise-item{
+  padding:40px 0;border-top:1px solid var(--line);
+  display:grid;grid-template-columns:80px 1fr;gap:30px;
+  align-items:start;transition:padding-right .4s ease;
+  position:relative;
+}
+.promise-item:last-child{border-bottom:1px solid var(--line);}
+.promise-item::before{
+  content:'';position:absolute;top:-1px;right:0;
+  width:0;height:1px;background:var(--camel);
+  transition:width .5s ease;
+}
+.promise-item:hover{padding-right:18px;}
+.promise-item:hover::before{width:80px;}
+.promise-num{
+  font-size:36px;color:var(--camel);font-weight:300;
+  letter-spacing:-1px;
+}
+.promise-item h3{
+  font-size:25px;margin-bottom:14px;
+  font-weight:500;color:var(--olive-deep);letter-spacing:-0.5px;
+}
+.promise-item p{
+  font-size:16px;line-height:1.8;color:var(--ink-soft);font-weight:400;
+}
+
+/* ============ ECOSYSTEM - Horizontal flow ============ */
+.ecosystem{
+  background:var(--cream-pale);
+  text-align:center;padding:180px 60px;
+}
+.eco-title-wrap{margin-bottom:90px;}
+.eco-title-wrap .section-eyebrow{margin:0 auto 28px;}
+.eco-flow{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:30px;
+  margin:90px auto 0;position:relative;max-width:1300px;
+}
+.eco-flow::before{
+  content:'';position:absolute;top:70px;left:100px;right:100px;
+  height:1px;
+  background:repeating-linear-gradient(to right, var(--camel) 0 6px, transparent 6px 12px);
+  z-index:0;
+}
+.eco-step{position:relative;z-index:1;}
+.eco-circle{
+  width:140px;height:140px;margin:0 auto 32px;border-radius:50%;
+  background:#fff;border:1px solid rgba(166,135,99,0.3);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;transition:all .5s cubic-bezier(.25,.1,.25,1);
+  box-shadow:0 8px 30px -10px rgba(31,29,24,0.08);
+}
+.eco-step:hover .eco-circle{
+  background:var(--olive-deep);transform:translateY(-8px) scale(1.05);
+  border-color:var(--olive-deep);
+  box-shadow:var(--shadow-md);
+}
+.eco-step:hover .eco-icon{color:var(--sand);}
+.eco-icon{
+  font-size:42px;color:var(--camel-deep);
+  transition:color .4s;font-weight:200;
+}
+.eco-num{
+  font-size:11px;color:var(--camel-deep);
+  margin-bottom:12px;letter-spacing:3px;
+  font-weight:600;
+}
+.eco-step h4{
+  font-size:19px;margin-bottom:12px;
+  font-weight:500;color:var(--olive-deep);letter-spacing:-0.3px;
+}
+.eco-step p{
+  font-size:13px;line-height:1.7;color:var(--ink-soft);
+  padding:0 10px;font-weight:400;
+}
+.eco-triangle{
+  display:inline-flex;gap:0;margin-top:90px;
+  background:#fff;border-radius:100px;overflow:hidden;
+  box-shadow:var(--shadow-sm);
+}
+.eco-triangle div{
+  padding:22px 50px;font-size:16px;color:var(--ink-soft);
+  font-weight:400;border-right:1px solid var(--line);
+}
+.eco-triangle div:last-child{border-right:none;}
+.eco-triangle strong{
+  display:block;color:var(--olive-deep);
+  font-size:24px;margin-bottom:2px;font-weight:500;letter-spacing:-0.5px;
+}
+
+/* ============ MASTERPIECES - Premium gallery ============ */
+.masterpieces{
+  padding:180px 0 0;background:var(--cream-pale);
+}
+.masterpieces .header-wrap{
+  padding:0 60px;margin-bottom:100px;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:60px;align-items:end;max-width:1400px;margin-right:auto;margin-left:auto;
+}
+.masterpieces .header-wrap p{
+  font-size:18px;line-height:1.9;color:var(--ink-soft);max-width:500px;
+}
+.sectors-wrap{padding:0 60px 60px;}
+.sector-row{
+  display:grid;grid-template-columns:1.3fr 1fr;
+  gap:80px;align-items:center;
+  padding:80px 0;border-top:1px solid var(--line);
+  max-width:1400px;margin:0 auto;
+}
+.sector-row:last-child{border-bottom:1px solid var(--line);}
+.sector-row:nth-child(even){grid-template-columns:1fr 1.3fr;}
+.sector-row:nth-child(even) .sector-image{order:2;}
+.sector-row:nth-child(even) .sector-content{order:1;}
+
+.sector-image{
+  position:relative;aspect-ratio:5/4;
+  border-radius:6px;overflow:hidden;
+  box-shadow:var(--shadow-md);
+}
+.sector-image img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform 1.5s cubic-bezier(.25,.1,.25,1);
+}
+.sector-row:hover .sector-image img{transform:scale(1.06);}
+.sector-image::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg, transparent 50%, rgba(45,48,36,0.5));
+  pointer-events:none;
+}
+.sector-tag{
+  position:absolute;top:30px;right:30px;
+  display:inline-flex;align-items:center;gap:14px;
+  padding:12px 22px;background:rgba(250,245,236,0.95);
+  backdrop-filter:blur(20px);border-radius:100px;
+  color:var(--olive-deep);font-size:13px;font-weight:600;
+  letter-spacing:2px;z-index:2;
+}
+.sector-tag .num{
+  font-size:16px;font-weight:300;color:var(--camel-deep);
+  padding-left:12px;border-left:1px solid rgba(31,29,24,0.15);
+}
+.sector-kind{
+  font-size:12px;letter-spacing:4px;color:var(--camel-deep);
+  margin-bottom:24px;font-weight:600;
+}
+.sector-headline{
+  font-size:clamp(38px,4.2vw,56px);line-height:1.08;
+  margin-bottom:28px;font-weight:200;
+  color:var(--olive-deep);letter-spacing:-1.5px;
+}
+.sector-headline em{font-style:normal;color:var(--camel-deep);font-weight:400;}
+.sector-content > p{
+  font-size:17px;line-height:1.9;color:var(--ink-soft);
+  margin-bottom:40px;max-width:500px;
+}
+.sector-projects{
+  display:flex;flex-wrap:wrap;gap:10px;
+}
+.sector-projects span{
+  padding:10px 20px;border:1px solid var(--line);
+  border-radius:100px;font-size:13px;
+  background:#fff;color:var(--olive-deep);font-weight:500;
+  transition:all .3s;
+}
+.sector-projects span:hover{
+  border-color:var(--camel);
+  background:var(--cream-light);
+  transform:translateY(-2px);
+}
+
+/* ============ VISIONARIES - Premium card ============ */
+.visionaries{
+  background:var(--cream-light);padding:180px 60px;
+}
+.vis-header{max-width:1400px;margin:0 auto 90px;}
+.vis-header p{
+  max-width:600px;font-size:18px;line-height:1.9;
+  color:var(--ink-soft);margin-top:32px;
+}
+.vis-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:40px;
+  max-width:1400px;margin:0 auto;
+}
+.vis-card{
+  background:#fff;border-radius:6px;
+  overflow:hidden;transition:all .5s cubic-bezier(.25,.1,.25,1);
+  box-shadow:0 4px 20px -8px rgba(31,29,24,0.08);
+}
+.vis-card:hover{
+  transform:translateY(-8px);
+  box-shadow:var(--shadow-lg);
+}
+.vis-portrait{
+  aspect-ratio:4/5;position:relative;overflow:hidden;
+  background:linear-gradient(135deg, var(--olive-deep) 0%, var(--olive) 50%, var(--bronze) 100%);
+  display:flex;align-items:center;justify-content:center;
+}
+.vis-portrait::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(201,181,148,0.18), transparent 50%),
+    radial-gradient(circle at 70% 80%, rgba(166,135,99,0.15), transparent 60%);
+}
+.vis-portrait::after{
+  content:'';position:absolute;inset:24px;
+  border:1px solid rgba(201,181,148,0.25);
+  border-radius:2px;
+  pointer-events:none;
+}
+.vis-monogram{
+  position:relative;z-index:2;
+  font-family:'IBM Plex Sans Arabic', sans-serif;
+  font-size:140px;font-weight:200;
+  color:var(--sand);letter-spacing:-4px;line-height:1;
+  transition:all .8s cubic-bezier(.25,.1,.25,1);
+}
+.vis-card:hover .vis-monogram{
+  transform:scale(1.08);
+  color:var(--cream-light);
+}
+.vis-corner{
+  position:absolute;z-index:2;
+  font-size:11px;letter-spacing:3px;
+  color:var(--sand);font-weight:500;
+  opacity:.7;
+}
+.vis-corner.tl{top:36px;right:36px;}
+.vis-corner.br{bottom:36px;left:36px;display:flex;align-items:center;gap:10px;}
+.vis-corner.br::before{
+  content:'';width:24px;height:1px;background:var(--sand);
+}
+.vis-body{padding:36px 32px;}
+.vis-tag{
+  display:inline-block;
+  font-size:11px;letter-spacing:3px;color:var(--camel-deep);
+  margin-bottom:14px;font-weight:600;
+  padding:6px 14px;background:rgba(166,135,99,0.08);
+  border-radius:100px;
+}
+.vis-name{
+  font-size:24px;line-height:1.3;margin-bottom:16px;
+  font-weight:500;color:var(--olive-deep);letter-spacing:-0.5px;
+}
+.vis-bio{
+  font-size:15px;line-height:1.8;color:var(--ink-soft);
+  padding-top:20px;border-top:1px solid var(--line);
+}
+
+/* ============ RECOGNITION - Cards ============ */
+.recognition{
+  background:var(--cream-pale);padding:180px 60px;
+}
+.rec-header{
+  text-align:center;max-width:800px;margin:0 auto 90px;
+}
+.rec-header .section-eyebrow{margin:0 auto 28px;}
+.rec-header p{
+  font-size:18px;line-height:1.9;
+  color:var(--ink-soft);margin-top:32px;
+}
+.rec-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:28px;
+  max-width:1400px;margin:0 auto;
+}
+.rec-item{
+  background:#fff;padding:48px 36px;
+  border-radius:6px;transition:all .5s cubic-bezier(.25,.1,.25,1);
+  position:relative;overflow:hidden;
+  box-shadow:0 4px 20px -8px rgba(31,29,24,0.06);
+}
+.rec-item::before{
+  content:'';position:absolute;top:0;left:0;width:100%;height:3px;
+  background:var(--camel);transform:scaleX(0);
+  transform-origin:right;transition:transform .6s ease;
+}
+.rec-item:hover{
+  transform:translateY(-8px);
+  box-shadow:var(--shadow-md);
+}
+.rec-item:hover::before{transform:scaleX(1);}
+.rec-num{
+  font-size:14px;color:var(--camel-deep);
+  margin-bottom:32px;letter-spacing:2px;font-weight:600;
+}
+.rec-icon{
+  width:64px;height:64px;margin-bottom:28px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;color:var(--cream);
+  background:var(--olive-deep);border-radius:18px;
+  font-weight:500;transition:all .4s;
+}
+.rec-item:hover .rec-icon{
+  background:var(--camel-deep);
+  transform:rotate(-5deg);
+}
+.rec-item h3{
+  font-size:21px;margin-bottom:16px;line-height:1.4;
+  font-weight:500;color:var(--olive-deep);letter-spacing:-0.3px;
+}
+.rec-item p{
+  font-size:14px;line-height:1.7;color:var(--ink-soft);
+}
+
+/* ============ PARTNERS - Marquee ============ */
+.partners{
+  background:var(--olive-deep);color:var(--cream);
+  padding:160px 0;text-align:center;overflow:hidden;
+}
+.partners-header{padding:0 60px;margin-bottom:90px;}
+.partners-header .section-eyebrow{
+  background:rgba(201,181,148,0.1);
+  color:var(--sand);
+  border-color:rgba(201,181,148,0.2);
+  margin:0 auto 28px;
+}
+.partners-header .section-title{color:#fff;}
+.partners-header .section-title em{color:var(--sand);}
+
+.marquee{
+  display:flex;overflow:hidden;
+  mask-image:linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+  -webkit-mask-image:linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+}
+.marquee-track{
+  display:flex;gap:20px;
+  animation:marquee 40s linear infinite;
+  flex-shrink:0;
+}
+@keyframes marquee{
+  0%{transform:translateX(0);}
+  100%{transform:translateX(50%);}
+}
+.partner{
+  flex-shrink:0;min-width:220px;height:120px;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(232,220,203,0.15);
+  border-radius:8px;font-size:15px;color:var(--cream-light);
+  padding:10px 30px;background:rgba(255,255,255,0.02);
+  font-weight:500;transition:all .4s;
+}
+.partner:hover{
+  border-color:var(--camel);
+  background:rgba(201,181,148,0.06);
+}
+
+/* ============ CTA ============ */
+.cta{
+  position:relative;padding:200px 60px 60px;
+  text-align:center;overflow:hidden;
+  background:var(--cream-pale);
+}
+.cta-bg{
+  position:absolute;inset:0;
+  background-image:url('https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=2400&q=90');
+  background-size:cover;background-position:center;
+  opacity:.12;
+}
+.cta::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg, var(--cream-pale) 0%, rgba(250,245,236,0.85) 50%, var(--cream-pale) 100%);
+}
+.cta > *{position:relative;z-index:2;}
+.cta-content{max-width:1100px;margin:0 auto;}
+.cta-ornament{
+  font-size:14px;color:var(--camel);
+  margin-bottom:40px;letter-spacing:6px;
+  font-weight:600;text-transform:uppercase;
+  display:inline-flex;align-items:center;gap:14px;
+}
+.cta-ornament::before,
+.cta-ornament::after{
+  content:'';width:40px;height:1px;background:var(--camel);
+}
+.cta-title{
+  font-size:clamp(48px,7vw,108px);line-height:1.02;
+  margin-bottom:32px;letter-spacing:-3px;
+  font-weight:200;color:var(--olive-deep);
+}
+.cta-title em{font-style:normal;color:var(--camel-deep);font-weight:400;}
+.cta-sub{
+  font-size:21px;color:var(--ink-soft);
+  margin-bottom:70px;max-width:640px;
+  margin-right:auto;margin-left:auto;
+  line-height:1.6;font-weight:300;
+}
+
+.contact-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  background:#fff;border-radius:8px;
+  margin-bottom:60px;
+  box-shadow:var(--shadow-md);
+  overflow:hidden;
+}
+.contact-item{
+  padding:48px 32px;
+  border-right:1px solid var(--line);text-align:right;
+  transition:all .4s;cursor:pointer;
+}
+.contact-item:last-child{border-right:none;}
+.contact-item:hover{background:var(--cream-light);}
+.contact-item small{
+  display:flex;align-items:center;gap:8px;
+  font-size:11px;letter-spacing:2px;color:var(--camel-deep);
+  margin-bottom:18px;font-weight:600;
+}
+.contact-item small::before{
+  content:'';width:6px;height:6px;background:var(--camel);
+  border-radius:50%;
+}
+.contact-item p{
+  font-size:18px;color:var(--olive-deep);font-weight:500;
+}
+.footer-base{
+  padding-top:40px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:13px;color:var(--ink-soft);max-width:1400px;
+  margin:0 auto;
+}
+
+/* ============ ANIMATIONS ============ */
+.reveal{
+  opacity:0;transform:translateY(50px);
+  transition:opacity 1.2s cubic-bezier(.25,.1,.25,1), transform 1.2s cubic-bezier(.25,.1,.25,1);
+}
+.reveal.in{opacity:1;transform:translateY(0);}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 968px){
+  nav, nav.scrolled{padding:18px 24px;}
+  .nav-links{display:none;}
+  section{padding:100px 24px;}
+  .hero{padding:120px 24px 60px;align-items:center;}
+  .hero-bottom{grid-template-columns:1fr;gap:40px;padding-top:40px;}
+  .hero-stats{gap:30px;justify-content:flex-start;flex-wrap:wrap;}
+  .scroll-down{display:none;}
+  .heritage{grid-template-columns:1fr;gap:60px;padding:100px 24px;}
+  .impact-grid{grid-template-columns:repeat(2,1fr);}
+  .impact-item{padding:40px 24px;}
+  .impact-item:nth-child(3n){border-right:1px solid var(--line-on-dark);}
+  .impact-item:nth-child(2n){border-right:none;}
+  .impact-num{font-size:72px;}
+  .impact-header{grid-template-columns:1fr;gap:40px;}
+  .promise{grid-template-columns:1fr;gap:60px;padding:100px 24px;}
+  .eco-flow{grid-template-columns:1fr 1fr;gap:40px 20px;}
+  .eco-flow::before{display:none;}
+  .eco-triangle{flex-direction:column;border-radius:24px;}
+  .eco-triangle div{border-right:none;border-bottom:1px solid var(--line);padding:20px 40px;}
+  .eco-triangle div:last-child{border-bottom:none;}
+  .masterpieces .header-wrap{grid-template-columns:1fr;gap:30px;}
+  .sectors-wrap{padding:0 24px 40px;}
+  .sector-row, .sector-row:nth-child(even){grid-template-columns:1fr;gap:40px;padding:60px 0;}
+  .sector-row:nth-child(even) .sector-image{order:1 !important;}
+  .sector-row:nth-child(even) .sector-content{order:2 !important;}
+  .sector-headline{font-size:32px;}
+  .vis-grid{grid-template-columns:1fr;}
+  .rec-grid{grid-template-columns:repeat(2,1fr);}
+  .contact-grid{grid-template-columns:1fr 1fr;}
+  .contact-item{border-bottom:1px solid var(--line);}
+  .contact-item:nth-child(2){border-right:none;}
+  .contact-item:nth-child(3){border-bottom:none;}
+  .footer-base{flex-direction:column;gap:14px;text-align:center;}
+  .phil-quote{font-size:32px;}
+}
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="nav-logo">مكيـن<span>.</span></div>
+  <div class="nav-links">
+    <a href="#story">القصة</a>
+    <a href="#impact">الأثر</a>
+    <a href="#promise">الوعد</a>
+    <a href="#sectors">المشاريع</a>
+    <a href="#team">القيادة</a>
+  </div>
+  <a href="#contact" class="nav-cta">تواصل معنا</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-top reveal in">منذ <span class="latin">2010</span> · المملكة العربية السعودية</div>
+    <h1 class="hero-title reveal in">مكيــــن</h1>
+    <div class="hero-bottom reveal in">
+      <p class="hero-tagline">خلف كل أثرٍ باقٍ.. أساسٌ مكين. نؤسس لقصص حياة تتجاوز عمر البناء، ومجتمعات تلهم أجيالاً.</p>
+      <div class="hero-stats">
+        <div><strong class="latin">2010</strong><span>بداية الرحلة</span></div>
+        <div><strong class="latin">+6</strong><span>مدن سعودية</span></div>
+        <div><strong class="latin">92</strong><span>مشروع نابض</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-down">
+    <span>للاستكشاف</span>
+    <div class="line-anim"></div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy reveal">
+  <div class="philosophy-bg"></div>
+  <div class="philosophy-content">
+    <div class="phil-mark">&ldquo;</div>
+    <h2 class="phil-quote">
+      نحن لا نبني مجرد <em>مساحات</em>..<br>
+      بل نؤسس لقصص <em>حياة</em>.
+    </h2>
+    <p class="phil-body">في عالم التطوير العقاري، نؤمن أن البناء الحقيقي يبدأ من الداخل. من الثقة التي تُبنى مع كل عميل، والجودة التي تقف صامدة أمام الزمن، والابتكار الذي يسبق تطلعات المستقبل.</p>
+    <div class="phil-vision">
+      <strong>رؤيتنا</strong>
+      أن نكون الرمز الأول للريادة والتميز في سماء التطوير العقاري.
+    </div>
+  </div>
+</section>
+
+<!-- HERITAGE -->
+<section class="heritage" id="story">
+  <div class="heritage-visual reveal">
+    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=90" alt="">
+    <div class="heritage-badge">
+      <span class="big latin">2018</span>
+      <small>تأسست أساس مكين</small>
+    </div>
+  </div>
+  <div class="heritage-text reveal">
+    <div class="section-eyebrow">قصتنا</div>
+    <h2 class="section-title">رحلة بدأت بشغف..<br><em>لتصبح ركيزة في مستقبل الوطن.</em></h2>
+    <p>منذ انطلاقتنا الأولى في عام <span class="latin">2010</span>، لم يكن هدفنا مجرد التوسع، بل كان ترك بصمة لا تُمحى.</p>
+    <p>هذا الشغف قادنا لتأسيس "شركة أساس مكين" في عام <span class="latin">2018</span>، لتنطلق برؤية تتجاوز مفهوم البناء التقليدي، وتنسجم بذكاء مع طموحات رؤية المملكة <span class="latin">2030</span>.</p>
+    <p>اليوم، نمضي بروح الفريق الواحد، لنبتكر مجتمعات ملهمة، ومساحات ترتقي بتجربة الإنسان.</p>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section class="impact" id="impact">
+  <div class="container">
+    <div class="impact-header reveal">
+      <div>
+        <div class="section-eyebrow">شواهد الأثر</div>
+        <h2 class="section-title">حجم يعكس الثقة..<br><em>وأرقام تروي حكاية نجاحنا.</em></h2>
+      </div>
+      <p>كل رقم هنا يحمل قصة، وكل قصة بنيت بإتقان وضمير. هذه ليست إحصائيات.. إنها شهادات حياة.</p>
+    </div>
+
+    <div class="impact-grid">
+      <div class="impact-item reveal">
+        <div class="impact-index latin">01</div>
+        <div class="impact-num latin">6,055</div>
+        <div class="impact-label">عائلة منحونا ثقتها</div>
+        <p class="impact-desc">لنسكن أحلامهم ونكون شركاءهم في تأسيس بيوت العمر.</p>
+      </div>
+      <div class="impact-item reveal">
+        <div class="impact-index latin">02</div>
+        <div class="impact-num latin">1.18<sup>M</sup></div>
+        <div class="impact-label">متر مربع مشيّد</div>
+        <p class="impact-desc">مساحات شيدناها بدقة وإتقان لتدوم لأجيال.</p>
+      </div>
+      <div class="impact-item reveal">
+        <div class="impact-index latin">03</div>
+        <div class="impact-num latin">92</div>
+        <div class="impact-label">مجتمعاً ومشروعاً</div>
+        <p class="impact-desc">نابضة بالحياة في أكثر من 6 مدن بالمملكة.</p>
+      </div>
+      <div class="impact-item reveal">
+        <div class="impact-index latin">04</div>
+        <div class="impact-num latin">14</div>
+        <div class="impact-label">برجاً تعانق السماء</div>
+        <p class="impact-desc">ترسم ملامح العمارة الحديثة في أفق المدن.</p>
+      </div>
+      <div class="impact-item reveal">
+        <div class="impact-index latin">05</div>
+        <div class="impact-num latin">195</div>
+        <div class="impact-label">معرضاً تجارياً</div>
+        <p class="impact-desc">واجهات تدعم نمو الأعمال وحركة الاقتصاد.</p>
+      </div>
+      <div class="impact-item reveal">
+        <div class="impact-index latin">06</div>
+        <div class="impact-num latin">149</div>
+        <div class="impact-label">مكتباً إدارياً</div>
+        <p class="impact-desc">بيئات عمل تستضيف اقتصاد المستقبل.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROMISE -->
+<section class="promise" id="promise">
+  <div class="promise-header reveal">
+    <div class="section-eyebrow">وعد مكين</div>
+    <h2>لأنك "الأساس"..<br><em>صممنا لك طمأنينة تدوم.</em></h2>
+    <p>طمأنينتك ليست هدفنا فحسب، بل هي معيار كل قرار نتخذه، وكل تفصيل نصممه، وكل وعدٍ نقطعه.</p>
+    <div class="promise-image">
+      <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1200&q=90" alt="">
+      <div class="promise-seal">
+        <span class="num latin">60<sup style="font-size:22px;">%</sup></span>
+        <div>
+          <small>ثقة موروثة</small>
+          <p>من عملائنا<br>يأتون بتوصية</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="promise-list reveal">
+    <div class="promise-item">
+      <div class="promise-num latin">01</div>
+      <div>
+        <h3>ثقة نتوارثها</h3>
+        <p>نفخر بأن 60٪ من عملائنا الجدد ينضمون إلينا بناءً على توصيات عملائنا السابقين — وهذا أثمن وسام نتقلده.</p>
+      </div>
+    </div>
+    <div class="promise-item">
+      <div class="promise-num latin">02</div>
+      <div>
+        <h3>طمأنينة لربع قرن</h3>
+        <p>ضماناتنا الممتدة حتى 25 عاماً ليست مجرد تعهد، بل هي انعكاس لجودة لا تساوم على المعايير.</p>
+      </div>
+    </div>
+    <div class="promise-item">
+      <div class="promise-num latin">03</div>
+      <div>
+        <h3>تفاصيل تليق بك</h3>
+        <p>نختار المواقع الاستراتيجية بعناية، ونبتكر تصاميم تجمع بين الجمال والوظيفة، ونعتني بك عبر خدمات ما بعد البيع.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ECOSYSTEM -->
+<section class="ecosystem">
+  <div class="eco-title-wrap reveal">
+    <div class="section-eyebrow">منظومة الإتقان</div>
+    <h2 class="section-title">من الفكرة..<br><em>إلى ريادة التشغيل.</em></h2>
+  </div>
+
+  <div class="eco-flow reveal">
+    <div class="eco-step">
+      <div class="eco-circle"><span class="eco-icon latin">01</span></div>
+      <div class="eco-num">المرحلة الأولى</div>
+      <h4>دراسة الفرص</h4>
+      <p>تقييم دقيق يقود لاستثمارات ذكية.</p>
+    </div>
+    <div class="eco-step">
+      <div class="eco-circle"><span class="eco-icon latin">02</span></div>
+      <div class="eco-num">المرحلة الثانية</div>
+      <h4>التخطيط والتصميم</h4>
+      <p>ابتكار معماري يراعي أدق التفاصيل.</p>
+    </div>
+    <div class="eco-step">
+      <div class="eco-circle"><span class="eco-icon latin">03</span></div>
+      <div class="eco-num">المرحلة الثالثة</div>
+      <h4>التشييد والبناء</h4>
+      <p>بناء راسخ وفق أجود المعايير.</p>
+    </div>
+    <div class="eco-step">
+      <div class="eco-circle"><span class="eco-icon latin">04</span></div>
+      <div class="eco-num">المرحلة الرابعة</div>
+      <h4>التسويق والبيع</h4>
+      <p>إيصال القيمة الحقيقية للعميل المستهدف.</p>
+    </div>
+    <div class="eco-step">
+      <div class="eco-circle"><span class="eco-icon latin">05</span></div>
+      <div class="eco-num">المرحلة الخامسة</div>
+      <h4>إدارة المرافق</h4>
+      <p>الحفاظ على ألق الأثر واستدامة الأداء.</p>
+    </div>
+  </div>
+
+  <div class="eco-triangle reveal">
+    <div><strong>أعلى</strong>جودة</div>
+    <div><strong>أقل</strong>مدة</div>
+    <div><strong>أكفأ</strong>تكلفة</div>
+  </div>
+</section>
+
+<!-- MASTERPIECES -->
+<section class="masterpieces" id="sectors">
+  <div class="header-wrap reveal">
+    <div>
+      <div class="section-eyebrow">معرض المشاريع</div>
+      <h2 class="section-title">أربعة قطاعات..<br><em>وحكاية واحدة من الإتقان.</em></h2>
+    </div>
+    <p>كل قطاع يحمل بصمتنا الفريدة في فهم احتياج الإنسان والمكان. من السكن الذي يحتضن الأحلام، إلى الأبراج التي ترسم آفاق المدن.</p>
+  </div>
+
+  <div class="sectors-wrap">
+    <div class="sector-row reveal">
+      <div class="sector-image">
+        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&q=90" alt="">
+        <div class="sector-tag">سكني<span class="num latin">01</span></div>
+      </div>
+      <div class="sector-content">
+        <div class="sector-kind">القطاع السكني</div>
+        <h3 class="sector-headline">سكينة <em>تُعاش..</em><br>في كل زاوية.</h3>
+        <p>بيوت تتنفس الراحة، ومجتمعات تحتضن الأجيال بدفء، حيث يلتقي التصميم العصري بالقيم الأصيلة لتشكّل مساكن العمر.</p>
+        <div class="sector-projects">
+          <span>مكين <span class="latin">34</span></span>
+          <span>فلل النرجس</span>
+          <span>أدوار الرمال</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sector-row reveal">
+      <div class="sector-image">
+        <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=1600&q=90" alt="">
+        <div class="sector-tag">تجاري<span class="num latin">02</span></div>
+      </div>
+      <div class="sector-content">
+        <div class="sector-kind">القطاع التجاري</div>
+        <h3 class="sector-headline">ليورا..<br><em>حيث تتنفس الأعمال.</em></h3>
+        <p>مساحات تجارية تصمم بفهم عميق لنبض السوق وحركة الإنسان، لتكون وجهة للنجاح ومحرّكاً لحركة المدن النابضة.</p>
+        <div class="sector-projects">
+          <span>ستريب مول ليورا الحمراء</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sector-row reveal">
+      <div class="sector-image">
+        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1600&q=90" alt="">
+        <div class="sector-tag">ضيافة<span class="num latin">03</span></div>
+      </div>
+      <div class="sector-content">
+        <div class="sector-kind">قطاع الضيافة</div>
+        <h3 class="sector-headline">ضيافة <em>تليق..</em><br>بالمدن الكبرى.</h3>
+        <p>تجارب فندقية تجمع بين الفخامة العصرية وروح الكرم العربي الأصيل، لتكون عنواناً لإقامةٍ لا تُنسى في قلب أهم المدن.</p>
+        <div class="sector-projects">
+          <span>فندق الياسمين</span>
+          <span>فندق الحمراء</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sector-row reveal">
+      <div class="sector-image">
+        <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=90" alt="">
+        <div class="sector-tag">أبراج<span class="num latin">04</span></div>
+      </div>
+      <div class="sector-content">
+        <div class="sector-kind">الأبراج الإدارية</div>
+        <h3 class="sector-headline">معالم <em>ترسم..</em><br>أفق المدينة.</h3>
+        <p>أبراج تتجاوز كونها مجرد مكاتب، لتكون رموزاً معمارية تعيد تشكيل أفق المدن وتستضيف اقتصاد المستقبل.</p>
+        <div class="sector-projects">
+          <span>برج الياسمين الإداري</span>
+          <span>برج النرجس</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISIONARIES -->
+<section class="visionaries" id="team">
+  <div class="vis-header reveal">
+    <div class="section-eyebrow">عقول تبني المستقبل</div>
+    <h2 class="section-title">خبرات تقود التحول..<br><em>ورؤى ترسم الغد.</em></h2>
+    <p>خلف كل مشروع عظيم، فريق يعمل بروحٍ واحدة وقادة يملكون رؤية ثاقبة تحوّل الطموحات إلى واقع ملموس.</p>
+  </div>
+
+  <div class="vis-grid">
+    <div class="vis-card reveal">
+      <div class="vis-portrait">
+        <span class="vis-corner tl latin">01</span>
+        <div class="vis-monogram">ع</div>
+        <span class="vis-corner br">رئيس مجلس الإدارة</span>
+      </div>
+      <div class="vis-body">
+        <div class="vis-tag">رئيس مجلس الإدارة</div>
+        <h3 class="vis-name">عبد الرحمن بن سعود الهدلق</h3>
+        <p class="vis-bio">خبرة تمتد لأكثر من <span class="latin">15</span> عاماً في صياغة الاستراتيجيات العقارية وقيادة التحولات الكبرى في القطاع.</p>
+      </div>
+    </div>
+    <div class="vis-card reveal">
+      <div class="vis-portrait">
+        <span class="vis-corner tl latin">02</span>
+        <div class="vis-monogram">أ</div>
+        <span class="vis-corner br">نائب الرئيس</span>
+      </div>
+      <div class="vis-body">
+        <div class="vis-tag">نائب رئيس مجلس الإدارة</div>
+        <h3 class="vis-name">أنس بن سعود الهدلق</h3>
+        <p class="vis-bio">رؤية مالية وإدارية استثنائية تقود مسارات التوسع وتضمن النمو المستدام للمنظومة.</p>
+      </div>
+    </div>
+    <div class="vis-card reveal">
+      <div class="vis-portrait">
+        <span class="vis-corner tl latin">03</span>
+        <div class="vis-monogram">ع</div>
+        <span class="vis-corner br">الرئيس التنفيذي</span>
+      </div>
+      <div class="vis-body">
+        <div class="vis-tag">عضو · الرئيس التنفيذي</div>
+        <h3 class="vis-name">عبد الرحمن بن إبراهيم الهدلق</h3>
+        <p class="vis-bio">قيادة تنفيذية تجمع بين الكفاءة العالية والابتكار الإداري لترجمة الطموحات إلى واقع.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECOGNITION -->
+<section class="recognition">
+  <div class="rec-header reveal">
+    <div class="section-eyebrow">اعتراف عالمي</div>
+    <h2 class="section-title">معايير عالمية..<br><em>تتجسد في كل زاوية.</em></h2>
+    <p>التزامنا الدائم بالتميز جعل من "أساس مكين" اسماً مرادفاً للجودة، وممثلاً جديراً لقطاع التطوير العقاري السعودي في المحافل الدولية.</p>
+  </div>
+
+  <div class="rec-grid">
+    <div class="rec-item reveal">
+      <div class="rec-num latin">01</div>
+      <div class="rec-icon latin">ISO</div>
+      <h3>شهادات الأيزو</h3>
+      <p>اعتماد عالمي في إدارة الجودة (<span class="latin">9001:2015</span>) وأنظمة الصحة والسلامة المهنية (<span class="latin">45001:2018</span>).</p>
+    </div>
+    <div class="rec-item reveal">
+      <div class="rec-num latin">02</div>
+      <div class="rec-icon">★</div>
+      <h3>أفضل بيئة عمل</h3>
+      <p>حاصلون على شهادة بيئة العمل المتميزة عالمياً، تأكيداً لثقافة عمل عقارية استثنائية.</p>
+    </div>
+    <div class="rec-item reveal">
+      <div class="rec-num latin">03</div>
+      <div class="rec-icon latin">1</div>
+      <h3>ثقة وريادة</h3>
+      <p>مصنفون كمقاولات درجة أولى، ومطور عقاري معتمد لدى "وافي".</p>
+    </div>
+    <div class="rec-item reveal">
+      <div class="rec-num latin">04</div>
+      <div class="rec-icon">⌘</div>
+      <h3>تمثيل دولي</h3>
+      <p>مشاركات رسمية ضمن وفود المملكة في منتديات الكويت، قطر، وجنوب أفريقيا.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section class="partners">
+  <div class="partners-header reveal">
+    <div class="section-eyebrow">شركاء الرحلة</div>
+    <h2 class="section-title">نجاحاتنا المشتركة..<br><em>مع نخبة الشركاء.</em></h2>
+  </div>
+  <div class="marquee">
+    <div class="marquee-track">
+      <div class="partner">وزارة الإسكان</div>
+      <div class="partner">وافي</div>
+      <div class="partner">روشن</div>
+      <div class="partner">الوطنية للإسكان</div>
+      <div class="partner">حديقة الملك سلمان</div>
+      <div class="partner">المسار الرياضي</div>
+      <div class="partner">البنك الأهلي</div>
+      <div class="partner">مصرف الراجحي</div>
+      <div class="partner">بنك الرياض</div>
+      <div class="partner">رؤية <span class="latin">2030</span></div>
+      <div class="partner">سدايا</div>
+      <div class="partner">هيئة المقاولين</div>
+      <!-- تكرار للحركة المستمرة -->
+      <div class="partner">وزارة الإسكان</div>
+      <div class="partner">وافي</div>
+      <div class="partner">روشن</div>
+      <div class="partner">الوطنية للإسكان</div>
+      <div class="partner">حديقة الملك سلمان</div>
+      <div class="partner">المسار الرياضي</div>
+      <div class="partner">البنك الأهلي</div>
+      <div class="partner">مصرف الراجحي</div>
+      <div class="partner">بنك الرياض</div>
+      <div class="partner">رؤية <span class="latin">2030</span></div>
+      <div class="partner">سدايا</div>
+      <div class="partner">هيئة المقاولين</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div class="cta-bg"></div>
+  <div class="cta-content reveal">
+    <div class="cta-ornament">معاً نبدأ</div>
+    <h2 class="cta-title">لنبدأ معاً..<br><em>في بناء حكاية جديدة.</em></h2>
+    <p class="cta-sub">سواء كنت تبحث عن سكن العمر، فرصة استثمارية، أو شراكة استراتيجية — نحن هنا.</p>
+  </div>
+
+  <div class="contact-grid reveal">
+    <div class="contact-item">
+      <small>الموقع الإلكتروني</small>
+      <p class="latin">asasmakeen.com</p>
+    </div>
+    <div class="contact-item">
+      <small>الرقم الموحد</small>
+      <p class="latin">920033366</p>
+    </div>
+    <div class="contact-item">
+      <small>البريد الإلكتروني</small>
+      <p class="latin">info@asasmakeen.com</p>
+    </div>
+    <div class="contact-item">
+      <small>منصات التواصل</small>
+      <p class="latin">@asasmakeen</p>
+    </div>
+  </div>
+
+  <div class="footer-base">
+    <div>© <span class="latin">2026</span> أساس مكين · جميع الحقوق محفوظة</div>
+    <div>المملكة العربية السعودية · الرياض</div>
+  </div>
+</section>
+
+<script>
+// Reveal on scroll
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('in');
+    }
+  });
+},{threshold:0.1, rootMargin:'0px 0px -80px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+// Nav scroll
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll',()=>{
+  if(window.scrollY > 50){
+    nav.classList.add('scrolled');
+  } else {
+    nav.classList.remove('scrolled');
+  }
+});
+
+// Parallax on hero image
+const heroBg = document.querySelector('.hero-bg');
+window.addEventListener('scroll',()=>{
+  const scrolled = window.scrollY;
+  if(heroBg && scrolled < window.innerHeight){
+    heroBg.style.transform = `scale(${1.05 + scrolled * 0.0002}) translateY(${scrolled * 0.3}px)`;
+  }
+});
+</script>
+</body>
+</html>
